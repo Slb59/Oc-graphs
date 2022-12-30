@@ -1,8 +1,9 @@
-# Oc-graphs
-Graphiques de suivi des projets de formation OCR
+class Project:
+    def __init__(self, title):
+        self.title = title
+        self.description = ''
 
-La liste des projets est lue depuis un fichier ods contenant un onglet Projets
-Les colonnes lues sont :
+    """
     - Sujet
     - Titre
     - Description
@@ -18,4 +19,7 @@ Les colonnes lues sont :
     - Temps effectif
     - Temps consacré au projet
     - Date de soutenance
+    """
 
+    def __str__(self):
+        return self.title + ': ' + self.description
