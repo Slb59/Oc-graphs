@@ -1,0 +1,6 @@
+# no environnement and ide files
+__pycache__
+env
+
+# les fichiers d'exercices
+fichiers
