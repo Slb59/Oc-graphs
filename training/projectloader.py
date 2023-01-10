@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 from training import *
 
 
@@ -23,7 +24,6 @@ class ProjectLoader:
                 if task.subject == '':
                     task.subject = prec_subject
 
-                print(task.real_time)
                 if task.real_time == '':
                     task.real_time = datetime.strptime("00:00", "%H:%M")
                 else:
