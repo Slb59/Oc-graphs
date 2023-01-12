@@ -1,5 +1,4 @@
 from training import *
-from exercises import *
 
 def main():
 
@@ -18,9 +17,5 @@ def main():
     p1_loader.load_csv()
     p1.task_pivot_to_table()
 
-def tests():
-    tests_data_science = DataScience()
-    tests_data_science.tests_np3()
-
 if __name__ == '__main__':
-    tests()
+    main()
