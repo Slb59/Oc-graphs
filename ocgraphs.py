@@ -17,5 +17,15 @@ def main():
     p1_loader.load_csv()
     p1.task_pivot_to_table()
 
+    p2 = Project('Projet 2')
+    p2.description = "Utilisez les bases de Python pour l'analyse de marché"
+    p2.path = "C:\\Users\\brico\\Documents\\8_Informatique\\1_Formation python\\Projet 2\\"
+    p2.project_file = 'suivi-projet 2.csv'
+    print(p2)
+    p2_loader = ProjectLoader(p1)
+    p2_loader.load_csv()
+
+    p2.task_pivot_to_table()
+
 if __name__ == '__main__':
     main()
