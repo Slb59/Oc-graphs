@@ -27,6 +27,7 @@ class Project:
         self.project_file = ''
 
         self.tasks = []
+        self.df = pd.DataFrame([task.__dict__ for task in self.tasks])
 
     def __str__(self):
         return self.title + ': ' + self.description
@@ -52,8 +53,9 @@ class Project:
 """
 
     def task_pivot_to_table(self):
-        df = pd.DataFrame([task.__dict__ for task in self.tasks])
-        table = df[['category', 'real_time']].pivot_table(index='category', values='real_time', aggfunc=np.sum)
+
+        print(self.df.keys())
+        table = self.df.pivot_table(index='category', values='real_time', aggfunc=np.sum)
         table['(HH:MM)'] = table['real_time'].apply(lambda x: f'{int(x // 3600):02d}:{int((x % 3600) // 60):02d}')
         print(table)
 
@@ -68,6 +70,36 @@ class Project:
         plt.title("Réalisé par catégorie")
 
         plt.savefig(self.path + 'realisé.png')
+
+    def task_pivot_to_bar(self):
+        df = pd.DataFrame([task.__dict__ for task in self.tasks])
+        table1 = df[['category', 'real_time']].pivot_table(index='category', values='real_time', aggfunc=np.sum)
+        table2 = df[['category', 'estimate_time']].pivot_table(index='category', values='estimate_time', aggfunc=np.sum)
+        fig = plt.figure(figsize=(10, 5))
+        categories = table1.index.tolist()
+        realise = table1['real_time'].tolist()
+        estimate = table2['estimate_time'].tolist()
+
+        # Set position of bar on X axis
+        barWidth = 0.40
+        br1 = np.arange(len(categories))
+        br2 = [x + barWidth for x in br1]
+
+        print(br1)
+        print(br2)
+
+        plt.bar(br2, realise, color='maroon',
+                width=barWidth, label='realisé', edgecolor='grey')
+        plt.bar(br1, estimate, color='green',
+                width=barWidth, label='estimé', edgecolor='grey')
+
+        plt.xlabel("Catégories")
+        plt.ylabel("Temps")
+        plt.title("Temps passé par catégorie")
+        plt.xticks([r + barWidth for r in range(len(categories))],
+                   categories)
+        plt.legend()
+        plt.show()
 
     def print_tasks(self):
         for t in self.tasks:

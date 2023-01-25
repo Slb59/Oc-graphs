@@ -5,3 +5,4 @@ from .training import *
 from .task import *
 from .project import *
 from .projectloader import *
+from .projectgraph import *

@@ -1,6 +1,7 @@
 # no environnement and ide files
 __pycache__
 env
+venv
 
 # les fichiers d'exercices
 fichiers

@@ -25,9 +25,9 @@ class ProjectLoader:
                     task.subject = prec_subject
 
                 if task.real_time == '':
-                    task.real_time = datetime.strptime("00:00", "%H:%M")
+                    task.real_time = datetime.datetime.strptime("00:00", "%H:%M")
                 else:
-                    task.real_time = datetime.strptime(task.real_time, "%H:%M")
+                    task.real_time = datetime.datetime.strptime(task.real_time, "%H:%M:%S")
 
                 task.real_time = task.real_time.hour * 3600 + task.real_time.minute * 60 + task.real_time.second
 
@@ -35,3 +35,5 @@ class ProjectLoader:
                 if task.subject.lower() == self.project.subject.lower():
                     self.project.tasks.append(task)
                 prec_subject = task.subject
+
+        self.project.df = pd.DataFrame([task.__dict__ for task in self.project.tasks])
