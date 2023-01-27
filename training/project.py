@@ -53,8 +53,6 @@ class Project:
 """
 
     def task_pivot_to_table(self):
-
-        print(self.df.keys())
         table = self.df.pivot_table(index='category', values='real_time', aggfunc=np.sum)
         table['(HH:MM)'] = table['real_time'].apply(lambda x: f'{int(x // 3600):02d}:{int((x % 3600) // 60):02d}')
         print(table)
@@ -69,7 +67,7 @@ class Project:
         plt.pie(realise, labels=categories, autopct='%1.0f%%')
         plt.title("Réalisé par catégorie")
 
-        plt.savefig(self.path + 'realisé.png')
+        plt.savefig(self.path + 'realisé-pie.png')
 
     def task_pivot_to_bar(self):
         df = pd.DataFrame([task.__dict__ for task in self.tasks])
@@ -99,7 +97,7 @@ class Project:
         plt.xticks([r + barWidth for r in range(len(categories))],
                    categories)
         plt.legend()
-        plt.show()
+        plt.savefig(self.path + 'realisé-bar.png')
 
     def print_tasks(self):
         for t in self.tasks:

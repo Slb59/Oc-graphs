@@ -28,6 +28,7 @@ def main():
     p2_loader.load_csv()
     p2.task_pivot_to_table()
     p2.task_pivot_to_pie()
+    p2.task_pivot_to_bar()
 
 if __name__ == '__main__':
     main()

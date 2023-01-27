@@ -24,12 +24,26 @@ class ProjectLoader:
                 if task.subject == '':
                     task.subject = prec_subject
 
+                print(task.real_time)
+
                 if task.real_time == '':
                     task.real_time = datetime.datetime.strptime("00:00", "%H:%M")
                 else:
                     task.real_time = datetime.datetime.strptime(task.real_time, "%H:%M:%S")
 
-                task.real_time = task.real_time.hour * 3600 + task.real_time.minute * 60 + task.real_time.second
+                if task.estimate_time == '':
+                    task.estimate_time = datetime.datetime.strptime("00:00", "%H:%M")
+                else:
+                    task.estimate_time = datetime.datetime.strptime(task.estimate_time, "%H:%M:%S")
+
+                print(task.real_time)
+                task.real_time = (task.real_time.hour * 3600
+                                  + task.real_time.minute * 60
+                                  + task.real_time.second) / 3600
+
+                task.estimate_time = (task.estimate_time.hour * 3600
+                                  + task.estimate_time.minute * 60
+                                  + task.estimate_time.second) / 3600
 
                 # if the task is on the project (same subject)
                 if task.subject.lower() == self.project.subject.lower():
