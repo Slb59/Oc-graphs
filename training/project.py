@@ -54,7 +54,7 @@ class Project:
 
     def task_pivot_to_table(self):
         table = self.df.pivot_table(index='category', values='real_time', aggfunc=np.sum)
-        table['(HH:MM)'] = table['real_time'].apply(lambda x: f'{int(x // 3600):02d}:{int((x % 3600) // 60):02d}')
+        table['(HH:MM)'] = table['real_time'].apply(lambda x: f'{int(x):02d}:{int(x % 1 * 60):02d}')
         print(table)
 
     def task_pivot_to_pie(self):

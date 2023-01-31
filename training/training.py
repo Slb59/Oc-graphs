@@ -30,22 +30,25 @@ class Training:
             reader = csv.DictReader(f)
 
             for line in reader:
-                task = Project(line['Sujet'])
+                p = Project(line['Sujet'])
 
-                task.title = line['Titre']
-                task.description =  line['Description']
-                """
-                line['Description'],
-                               line['Temps estimé'], line['% temps / total'],
-                               line['Nombre de jours affectés'],
-                               line['Nombre heures sur le projet'],
-                               line["Nombre d'heures affectées"],
-                               line['Date de démarrage estimée'], line['Date de fin estimée'],
-                               line['Date de damarrage effectif'], line['Date de fin effectif'],
-                               line['Temps effectif'], line['Temps consacré au projet'],
-                               line['Date de soutenance'])
-                """
-                self.projects.append(task)
+                p.title = line['Titre']
+                p.description = line['Description']
+
+                p.estimate_time = line['Temps estimé']
+                p.pct_total_time = line['% temps / total']
+                p.nb_days_affected = line['Nombre de jours affectés']
+                p.nb_hours_on_project = line['Nombre heures sur le projet']
+                p.nb_hours_affected = line["Nombre d'heures affectées"]
+                p.estimate_start_date = line['Date de démarrage estimée']
+                p.estimate_end_date = line['Date de fin estimée']
+                p.real_start_date = line['Date de damarrage effectif']
+                p.real_end_date = line['Date de fin effectif']
+                p.real_time = line['Temps effectif']
+                p.real_time_on_project = line['Temps consacré au projet']
+                p.evaluate_date = line['Date de soutenance']
+
+                self.projects.append(p)
 
 
 
