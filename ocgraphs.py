@@ -39,9 +39,17 @@ def load_p4():
     print(p)
     analyse_projet(p)
 
+def load_p5():
+    p = Project('Projet 5')
+    p.description = "Testez votre maîtrise du langage Python"
+    p.path = "C:\\Users\\brico\\Documents\\8_Informatique\\1_Formation python\\Projet 5\\"
+    p.project_file = 'suivi-projet5.csv'
+    print(p)
+    analyse_projet(p)
+
 def analyse_projet(projet):
-    p1_loader = ProjectLoader(projet)
-    p1_loader.load_csv()
+    p_loader = ProjectLoader(projet)
+    p_loader.load_csv()
     projet.task_pivot_to_table()
     projet.task_pivot_to_pie()
     projet.task_pivot_to_bar()
@@ -50,7 +58,7 @@ def analyse_projet(projet):
 def main():
 
     load_training()
-    load_p4()
+    load_p5()
 
 
 if __name__ == '__main__':
