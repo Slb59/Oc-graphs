@@ -31,6 +31,14 @@ def load_p3():
     print(p)
     analyse_projet(p)
 
+def load_p4():
+    p = Project('Projet 4')
+    p.description = "Développez un programme logiciel en Python"
+    p.path = "C:\\Users\\brico\\Documents\\8_Informatique\\1_Formation python\\Projet 4\\"
+    p.project_file = 'suivi-projet4.csv'
+    print(p)
+    analyse_projet(p)
+
 def analyse_projet(projet):
     p1_loader = ProjectLoader(projet)
     p1_loader.load_csv()
@@ -42,9 +50,7 @@ def analyse_projet(projet):
 def main():
 
     load_training()
-    load_p1()
-    load_p2()
-    load_p3()
+    load_p4()
 
 
 if __name__ == '__main__':
