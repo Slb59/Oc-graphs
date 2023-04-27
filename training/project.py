@@ -34,19 +34,23 @@ class Project:
 
     def __repr__(self):
         line = self.title + ": " + self.description + "\n"
-        line += f"Estimations : {str(self.estimate_time)} soit {str(self.pct_total_time)}% du total\n"
+        line += f"Estimations : {str(self.estimate_time)} soit"
+        line += f"{str(self.pct_total_time)}% du total\n"
         line += f"{str(self.nb_days_affected)} jours affectés "
         line += f"soit {str(self.nb_hours_on_project)} heures sur le projet "
         line += f"et {str(self.nb_hours_affected)} heures au total\n"
-        line += f"Le projet est prévu de : {self.estimate_start_date} au {self.estimate_end_date}"
+        line += f"Le projet est prévu de : {self.estimate_start_date} "
+        line += f"au {self.estimate_end_date}"
         if self.real_start_date:
-            line += f"Il s'est effectivement déroulé du {self.real_start_date} au {self.real_end_date}\n"
-            line += f"pour une durée de {self.real_time} heure soit {self.real_time_on_project} "
+            line += f"Il s'est effectivement déroulé du {self.real_start_date}"
+            line += f" au {self.real_end_date}\n"
+            line += f"pour une durée de {self.real_time} "
+            + "heure soit {self.real_time_on_project} "
             line += f"{self.real_time_on_project} sur le projet"
         now = datetime.date
         print(self.evaluate_date)
         print(type(self.evaluate_date))
-        if len(self.evaluate_date)>0:
+        if len(self.evaluate_date) > 0:
             a_date = datetime.datetime.strptime(self.evaluate_date, "%d/%m/%Y")
             if now < a_date:
                 line += f"La soutenance aura lieu le {self.evaluate_date}"
@@ -100,7 +104,7 @@ class Project:
         table2 = df[["category", "estimate_time"]].pivot_table(
             index="category", values="estimate_time", aggfunc=np.sum
         )
-        fig = plt.figure(figsize=(10, 5))
+        # fig = plt.figure(figsize=(10, 5))
         categories = table1.index.tolist()
         realise = table1["real_time"].tolist()
         estimate = table2["estimate_time"].tolist()
