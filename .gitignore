@@ -1,7 +1,11 @@
 # no environnement and ide files
 __pycache__
 env
-venv
+.venv
 
 # les fichiers d'exercices
 fichiers
+
+# no save files
+*~*
+.idea

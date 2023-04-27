@@ -19,7 +19,7 @@ class Training:
         infos = self.title + '\n'
         infos += 'Liste des projets\n'
         for p in self.projects:
-            infos += p.subject + ': ' + p.title + '\n'
+            infos += p.subject + ': ' + p.title + ' '+ p.evaluate_date +'\n'
         return infos
 
     def load_projects(self):

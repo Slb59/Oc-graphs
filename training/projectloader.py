@@ -24,7 +24,7 @@ class ProjectLoader:
                 if task.subject == '':
                     task.subject = prec_subject
 
-                print(task.real_time)
+                # print(task.real_time)
 
                 if task.real_time == '':
                     task.real_time = datetime.datetime.strptime("00:00", "%H:%M")
@@ -36,7 +36,7 @@ class ProjectLoader:
                 else:
                     task.estimate_time = datetime.datetime.strptime(task.estimate_time, "%H:%M:%S")
 
-                print(task.real_time)
+                # print(task.real_time)
                 task.real_time = (task.real_time.hour * 3600
                                   + task.real_time.minute * 60
                                   + task.real_time.second) / 3600
