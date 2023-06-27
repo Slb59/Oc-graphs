@@ -1,6 +1,7 @@
 from datetime import timedelta, datetime
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.translation import gettext_lazy as _
 
 TOTAL_TIME = 800
 NBH_BYDAY_ONPROJECT = 4
@@ -81,3 +82,38 @@ class Project(models.Model):
             else:
                 line += f"La soutenance a eu lieu le {self.evaluate_date}"
         return line
+
+
+class Task(models.Model):
+
+    class Category(models.TextChoices):
+        ORGANIZATION = "ORG", _('Organisation')
+        FORUM = "FRM", _('Forum')
+        MENTORAT = "MEN", _('Mentorat')
+        DEVELOPMENT = "DEV", _('Developpement')
+        FORMATION = "FOR", _('Formation')
+        EVALUATION = "EVL", _('Evaluation')
+
+    date_task = models.DateField()
+    subject = models.ForeignKey(
+        to=Project, related_name="project_task",
+        on_delete=models.CASCADE,
+        blank=True, null=True
+        )
+    category = models.CharField(
+        max_length=3, choices=Category.choices, default=""
+        )
+    description = models.CharField(max_length=512, default="")
+    estimate_time = models.DurationField(
+        default=timedelta(hours=0)
+        )
+    real_time = models.DurationField(
+        default=timedelta(hours=0)
+        )
+
+    def __str__(self):
+        str = self.date + "- (" + self.subject + ")" + self.category + "\n"
+        str += self.description + "\n"
+        str += "Estimé : " + self.estimate_time
+        str += " --- Réalisé : " + self.real_time
+        return str

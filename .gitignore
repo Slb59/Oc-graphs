@@ -9,3 +9,7 @@ fichiers
 # no save files
 *~*
 .idea
+
+# no database
+db.sqlite3
+savedb
