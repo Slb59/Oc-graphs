@@ -8,8 +8,7 @@ class Task:
         self.real_time = real_time
 
     def __str__(self):
-        str = self.date + '- (' + self.subject + ')' + self.category + '\n'
-        str += self.description + '\n'
-        str += 'Estimé : ' + self.estimate_time + ' --- Réalisé : ' + self.real_time
+        str = self.date + "- (" + self.subject + ")" + self.category + "\n"
+        str += self.description + "\n"
+        str += "Estimé : " + self.estimate_time + " --- Réalisé : " + self.real_time
         return str
-

@@ -45,7 +45,7 @@ class Project:
             line += f"Il s'est effectivement déroulé du {self.real_start_date}"
             line += f" au {self.real_end_date}\n"
             line += f"pour une durée de {self.real_time} "
-            + "heure soit {self.real_time_on_project} "
+            +"heure soit {self.real_time_on_project} "
             line += f"{self.real_time_on_project} sur le projet"
         now = datetime.date
         print(self.evaluate_date)

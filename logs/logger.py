@@ -3,10 +3,10 @@ import sys
 
 
 class Logger:
-    """ Manage the logs of the project """
-    def __init__(self):
+    """Manage the logs of the project"""
 
-        self.logger = logging.getLogger('OC-GRAPH')
+    def __init__(self):
+        self.logger = logging.getLogger("OC-GRAPH")
 
         # define a Handler which writes INFO messages or higher to the sys.stderr
         console = logging.StreamHandler(sys.stdout)
@@ -16,9 +16,10 @@ class Logger:
         self.logger.addHandler(console)
 
         formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s "
-            "- %(message)s", "%d/%m/%Y %H:%M:%S")
-        file_handler = logging.FileHandler("./logs/ocgraphs.log", encoding='utf-8')
+            "%(asctime)s - %(name)s - %(levelname)s " "- %(message)s",
+            "%d/%m/%Y %H:%M:%S",
+        )
+        file_handler = logging.FileHandler("./logs/ocgraphs.log", encoding="utf-8")
         file_handler.setLevel(logging.DEBUG)
         file_handler.setFormatter(formatter)
         self.logger.addHandler(file_handler)

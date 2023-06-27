@@ -4,46 +4,61 @@ from training import *
 
 
 class ProjectLoader:
-    """ load a csv projet in a Project object """
+    """load a csv projet in a Project object"""
 
     def __init__(self, project):
         self.project = project
 
     def load_csv(self):
-
-        with open(self.project.path + self.project.project_file, newline='', encoding='utf-8') as f:
+        with open(
+            self.project.path + self.project.project_file, newline="", encoding="utf-8"
+        ) as f:
             reader = csv.DictReader(f)
 
             # save the prec subject to manage the case of a merged field
-            prec_subject = ''
+            prec_subject = ""
 
             for line in reader:
-                task = Task(line['Date'], line['Sujet'], line['Catégorie'], line['Description'],
-                              line['Durée estimée'], line['Réalisé'])
+                task = Task(
+                    line["Date"],
+                    line["Sujet"],
+                    line["Catégorie"],
+                    line["Description"],
+                    line["Durée estimée"],
+                    line["Réalisé"],
+                )
 
-                if task.subject == '':
+                if task.subject == "":
                     task.subject = prec_subject
 
                 # print(task.real_time)
 
-                if task.real_time == '':
+                if task.real_time == "":
                     task.real_time = datetime.datetime.strptime("00:00", "%H:%M")
                 else:
-                    task.real_time = datetime.datetime.strptime(task.real_time, "%H:%M:%S")
+                    task.real_time = datetime.datetime.strptime(
+                        task.real_time, "%H:%M:%S"
+                    )
 
-                if task.estimate_time == '':
+                if task.estimate_time == "":
                     task.estimate_time = datetime.datetime.strptime("00:00", "%H:%M")
                 else:
-                    task.estimate_time = datetime.datetime.strptime(task.estimate_time, "%H:%M:%S")
+                    task.estimate_time = datetime.datetime.strptime(
+                        task.estimate_time, "%H:%M:%S"
+                    )
 
                 # print(task.real_time)
-                task.real_time = (task.real_time.hour * 3600
-                                  + task.real_time.minute * 60
-                                  + task.real_time.second) / 3600
+                task.real_time = (
+                    task.real_time.hour * 3600
+                    + task.real_time.minute * 60
+                    + task.real_time.second
+                ) / 3600
 
-                task.estimate_time = (task.estimate_time.hour * 3600
-                                  + task.estimate_time.minute * 60
-                                  + task.estimate_time.second) / 3600
+                task.estimate_time = (
+                    task.estimate_time.hour * 3600
+                    + task.estimate_time.minute * 60
+                    + task.estimate_time.second
+                ) / 3600
 
                 # if the task is on the project (same subject)
                 if task.subject.lower() == self.project.subject.lower():
