@@ -1,3 +1,4 @@
+import pandas as pd
 from datetime import timedelta, datetime
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -54,6 +55,10 @@ class Project(models.Model):
     def nb_hours_affected(self):
         return self.nb_days_affected*NBH_BYDAY
 
+    @property
+    def dataframe(self):
+        return pd.DataFrame([task.__dict__ for task in self.project.tasks])
+
     def __str__(self):
         return self.subject
 
@@ -87,12 +92,13 @@ class Project(models.Model):
 class Task(models.Model):
 
     class Category(models.TextChoices):
-        ORGANIZATION = "ORG", _('Organisation')
-        FORUM = "FRM", _('Forum')
-        MENTORAT = "MEN", _('Mentorat')
-        DEVELOPMENT = "DEV", _('Developpement')
-        FORMATION = "FOR", _('Formation')
-        EVALUATION = "EVL", _('Evaluation')
+        ORGANIZATION = "1ORG", _('Organisation')
+        FORUM = "2FRM", _('Forum')
+        MENTORAT = "3MEN", _('Mentorat')
+        DEVELOPMENT = "6DEV", _('Developpement')
+        ANALYSE = "5ANA", _('Analyse')
+        FORMATION = "4FOR", _('Formation')
+        EVALUATION = "7EVL", _('Evaluation')
 
     date_task = models.DateField()
     subject = models.ForeignKey(
@@ -101,9 +107,9 @@ class Task(models.Model):
         blank=True, null=True
         )
     category = models.CharField(
-        max_length=3, choices=Category.choices, default=""
+        max_length=4, choices=Category.choices, default=""
         )
-    description = models.CharField(max_length=512, default="")
+    description = models.CharField(max_length=512, default="", blank=True)
     estimate_time = models.DurationField(
         default=timedelta(hours=0)
         )
@@ -112,8 +118,9 @@ class Task(models.Model):
         )
 
     def __str__(self):
-        str = self.date + "- (" + self.subject + ")" + self.category + "\n"
-        str += self.description + "\n"
-        str += "Estimé : " + self.estimate_time
-        str += " --- Réalisé : " + self.real_time
-        return str
+        ch = str(self.date_task) + "- (" + self.subject.title + ")"
+        ch += self.category + "\n"
+        ch += self.description + "\n"
+        ch += "Estimé : " + str(self.estimate_time)
+        ch += " --- Réalisé : " + str(self.real_time)
+        return ch
