@@ -15,11 +15,18 @@
             <thead>
                 <tr>
                     {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Subject</th>
                     <th class="text-center" scope="col">Title</th>
-                    <th class="text-center" scope="col">Year</th>
-                    <th class="text-center" scope="col">Length</th>
-                    <th class="text-center" scope="col">Score</th>
-                    <th class="text-center" scope="col">Genre</th>
+                    <th class="text-center" scope="col">Description</th>
+                    <th class="text-center" scope="col">estimate_time</th>
+                    <th class="text-center" scope="col">nb_days_affected</th>
+                    <th class="text-center" scope="col">estimate_start_date</th>
+                    <th class="text-center" scope="col">estimate_end_date</th>
+                    <th class="text-center" scope="col">real_start_date</th>
+                    <th class="text-center" scope="col">real_end_date</th>
+                    <th class="text-center" scope="col">real_time</th>
+                    <th class="text-center" scope="col">real_time_on_project</th>
+                    <th class="text-center" scope="col">evaluate_date</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -29,11 +36,18 @@
                 {% for project in project_list %}
                 <tr>
                     {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}
-                    <td class="ml-5"><a href="{% url 'graphs:project_detail' project.id %}">{{project.title}}</a></td>
-                    <!-- <td class="text-center">{{film.year}}</td>
-                    <td class="text-center">{{film.length}}</td>
-                    <td class="text-center">{{film.score | floatformat:2}}</td>
-                    <td class="text-center">{{film.genre}}</td> -->
+                    <td class="ml-5"><a href="{% url 'graphs:project_detail' project.id %}">{{project.subject}}</a></td>
+                    <td class="text-center">{{project.title}}</td>
+                    <td class="text-center">{{project.description}}</td>
+                    <td class="text-center">{{project.estimate_time}}</td>
+                    <td class="text-center">{{project.nb_days_affected}}</td>
+                    <td class="text-center">{{project.estimate_start_date}}</td>
+                    <td class="text-center">{{project.estimate_end_date}}</td>
+                    <td class="text-center">{{project.real_start_date}}</td>
+                    <td class="text-center">{{project.real_end_date}}</td>
+                    <td class="text-center">{{project.real_time}}</td>
+                    <td class="text-center">{{project.real_time_on_project}}</td>
+                    <td class="text-center">{{project.evaluate_date}}</td>
                     <!-- <td><a href="{% url 'graphs:project_update' project.id %} ">Update</a></td>
                     <td><a href="{% url 'graphs:project_delete' project.id %}">Delete</a></td> -->
                 </tr>
