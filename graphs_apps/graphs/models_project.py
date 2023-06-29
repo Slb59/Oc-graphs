@@ -1,8 +1,9 @@
-import pandas as pd
+# import pandas as pd
 from datetime import timedelta, datetime
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.utils.translation import gettext_lazy as _
+# from django.utils.translation import gettext_lazy as _
+
 
 TOTAL_TIME = 800
 NBH_BYDAY_ONPROJECT = 4
@@ -35,7 +36,7 @@ class Project(models.Model):
         )
     evaluate_date = models.DateField()
 
-    # self.tasks = []
+    # tasks = models.ManyToManyField(Task)
     # self.df = pd.DataFrame([task.__dict__ for task in self.tasks])
 
     class Meta:
@@ -57,7 +58,10 @@ class Project(models.Model):
 
     @property
     def dataframe(self):
-        return pd.DataFrame([task.__dict__ for task in self.project.tasks])
+        print('get dataframe')
+        # df = pd.DataFrame([task.__dict__ for task in self.tasks])
+        # print(df)
+        return self.nb_days_affected*NBH_BYDAY
 
     def __str__(self):
         return self.subject
@@ -88,39 +92,17 @@ class Project(models.Model):
                 line += f"La soutenance a eu lieu le {self.evaluate_date}"
         return line
 
+    def get_fields(self):
+        return [
+            (field.verbose_name, field.value_from_object(self))
 
-class Task(models.Model):
+            # if field.verbose_name != 'genre'
+ 
+            # else
+            #     (field.verbose_name,
+            #     Genre.objects.get(pk=field.value_from_object(self)).name)
 
-    class Category(models.TextChoices):
-        ORGANIZATION = "1ORG", _('Organisation')
-        FORUM = "2FRM", _('Forum')
-        MENTORAT = "3MEN", _('Mentorat')
-        DEVELOPMENT = "6DEV", _('Developpement')
-        ANALYSE = "5ANA", _('Analyse')
-        FORMATION = "4FOR", _('Formation')
-        EVALUATION = "7EVL", _('Evaluation')
+            for field in self.__class__._meta.fields[1:]
+        ]
 
-    date_task = models.DateField()
-    subject = models.ForeignKey(
-        to=Project, related_name="project_task",
-        on_delete=models.CASCADE,
-        blank=True, null=True
-        )
-    category = models.CharField(
-        max_length=4, choices=Category.choices, default=""
-        )
-    description = models.CharField(max_length=512, default="", blank=True)
-    estimate_time = models.DurationField(
-        default=timedelta(hours=0)
-        )
-    real_time = models.DurationField(
-        default=timedelta(hours=0)
-        )
 
-    def __str__(self):
-        ch = str(self.date_task) + "- (" + self.subject.title + ")"
-        ch += self.category + "\n"
-        ch += self.description + "\n"
-        ch += "Estimé : " + str(self.estimate_time)
-        ch += " --- Réalisé : " + str(self.real_time)
-        return ch

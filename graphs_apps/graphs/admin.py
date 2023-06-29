@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Project, Task
+from .models_task import Task
+from .models_project import Project
 
 
 @admin.register(Project)
